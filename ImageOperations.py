@@ -4,6 +4,7 @@ from PythonMagick import Image as PyImage
 import pdfkit
 from PyPDF2 import PdfFileReader, PdfFileMerger
 import shutil
+import datetime
 
 
 class ImageOpr:
@@ -71,14 +72,14 @@ class ImageOpr:
                 destination_directory_file_name = os.path.join(destination_directory, tif_file_name + ".pdf")
                 shutil.move(os.path.join(path_to_temp, tif_file_name + ".pdf"), destination_directory_file_name)
 
-            shutil.rmtree(path_to_temp, ignore_errors=True)
+        shutil.rmtree(path_to_temp, ignore_errors=True)
 
-            if not invalid_file_paths:
-                operation_result.update({"code": 0, "invalid_file_paths": "None"})
-            else:
-                invalid_files = ",".join(list_of_file_paths)
-                operation_result.update({"code": 1, "invalid_file_paths": invalid_files})
-            return operation_result
+        if not invalid_file_paths:
+            operation_result.update({"code": 0, "invalid_file_paths": "None"})
+        else:
+            invalid_files = ",".join(list_of_file_paths)
+            operation_result.update({"code": 1, "invalid_file_paths": invalid_files})
+        return operation_result
 
     @staticmethod
     def bmp_to_png(list_of_file_paths, destination_directory, delete_source=False):
@@ -163,12 +164,14 @@ class ImageOpr:
     @staticmethod
     def html_text_to_pdf(html_text, destination_directory, output_file_name):
         file_path = os.path.join(destination_directory, output_file_name)
+        if os.path.exists(file_path):
+            new_file_path = os.path.join(destination_directory, "Alt" + str(datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')))
         options = {
             'page-size': 'Letter',
             'dpi': '600'
         }
         pdfkit.from_string(html_text, file_path, options=options)
-        return "Success"
+        return new_file_path
 
     @staticmethod
     def merge_pdf(list_of_file_paths, destination_directory, file_name, delete_source=False):
