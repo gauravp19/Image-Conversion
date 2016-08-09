@@ -14,6 +14,15 @@ class ImageOpr:
 
     @staticmethod
     def tiff_to_pdf(list_of_file_paths, destination_directory):
+        """
+        This method converts individual TIFF image files to PDF.
+        :param list_of_file_paths: This argument is the list of absolute file paths for example
+        ['C:/User/Documents/Images/Image1.tiff', 'C:/User/Documents/Images/Image2.tiff' ]
+        :param destination_directory: Pass in the absolute path to the directory you want the
+        converted files to be saved to.
+        :return: This method returns a dictionary giving information about the success or failure
+        of the operation and also gives the list of files that failed the conversion.
+        """
         operation_result = {}
         invalid_file_paths = []
         for files in list_of_file_paths:
