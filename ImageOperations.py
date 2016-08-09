@@ -21,7 +21,7 @@ class ImageOpr:
         :param destination_directory: Pass in the absolute path to the directory you want the
         converted files to be saved to.
         :return: This method returns a dictionary giving information about the success or failure
-        of the operation and also gives the list of files that failed the conversion.
+        of the operation and also gives the list of files that failed the conversion..
         """
         operation_result = {}
         invalid_file_paths = []
